@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #08090B;
+  font-family: monospace;
+}
+
+.topbar{
+    height: 44px;
+    background-color: #0C0D10;
+    border: 0.5px solid #27272F;
+}
+
+.main{
+    display: grid;
+    grid-template-columns: 240px 1fr 305px;
+    height: calc(100vh - 44px);
+}
+
+.sidebar-left{
+    background-color: #13141A;
+    border: 0.5px solid #27272F;
+    position: relative;
+}
+
+.content{
+    background-color: #0F1014;
+    border: 0.5 solid #27272F;
+}
+
+.sidebar-right{
+    background-color: #13141A;
+    border: 0.5px solid #27272F;
+}
+
+.sidebar-left .views{
+    color: #FAFAFA;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+
