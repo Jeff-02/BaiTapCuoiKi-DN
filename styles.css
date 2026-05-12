@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'JetBrains Mono', monospace;
+    background-color: transparent;
+}
+
+body {
+    background-color: #08090b;
+    color: #d4d4d8;
+}
+
+.topbar {
+    height: 44px;
+    background-color: #0c0d10;
+    border-bottom: 1px solid #1a1b1f;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 240px 1fr 305px;
+    height: calc(100vh - 44px);
+}
+
+.sidebar-left {
+    background-color: #08090b;
+    border-right: 1px solid #27272f;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0;
+}
+
+.content { background-color: #08090b; }
+.sidebar-right { border-left: 1px solid #27272f; }
+
+.sidebar-section {
+    margin-bottom: 30px;
+}
+
+.section-title {
+    color: #52525b; 
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 0 16px 8px;
+}
+
+.side-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 16px;
+    color: #a1a1aa;
+    font-size: 12px;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+}
+
+.side-row.active {
+    background-color: #13141a;
+    color: #fafafa;
+    border-left-color: #5eead4; /* Viền xanh bên trái */
+}
+
+.side-row:hover {
+    color: #fafafa;
+}
+
+.side-row .glyph {
+    width: 14px;
+    display: flex;
+    justify-content: center;
+    color: #52525b;
+}
+
+.side-row.active .glyph {
+    color: #5eead4;
+}
+
+.side-row .label { flex: 1; }
+
+.side-row .count {
+    font-size: 11px;
+    color: #52525b;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+}
+
+.add-new {
+    margin-top: 5px;
+    color: #52525b;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 16px;
+}
+
+.tag {
+    color: #a1a1aa;
+    font-size: 10px;
+    padding: 2px 6px;
+    border: 1px solid #27272f;
+}
+
+.streak-box {
+    padding: 0 16px;
+}
+
+.streak-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.streak-num {
+    color: #5eead4;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.streak-text {
+    color: #52525b;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+}
+
+.streak-chart {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 35px;
+}
+
+.bar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.bar {
+    width: 18px;
+    background-color: #5eead4; 
+}
+
+.bar-group span {
+    font-size: 9px;
+    color: #52525b;
+}
