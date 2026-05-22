@@ -1,0 +1,383 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'JetBrains Mono', monospace;
+    background-color: transparent;
+}
+
+body {
+    background-color: #08090b; 
+    color: #d4d4d8;            
+}
+
+
+.topbar {
+    height: 44px;
+    background-color: #0c0d10;
+    border-bottom: 1px solid #1a1b1f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 11px;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dot-accent {
+    width: 10px;
+    height: 10px;
+    background-color: #5eead4;
+}
+
+.muted { color: #71717a; }
+.text-bold { color: #fafafa; font-weight: 600; }
+.accent-text { color: #5eead4; }
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.search-btn {
+    background-color: #13141a;
+    border: 1px solid #27272f;
+    color: #71717a;
+    padding: 4px 10px;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    cursor: pointer;
+}
+
+.kbd {
+    color: #52525b;
+    padding: 1px 6px;
+    border: 1px solid #27272f;
+    font-size: 10px;
+}
+
+.sync-info {
+    color: #52525b;
+    display: flex;
+    gap: 12px;
+}
+
+
+.main {
+    display: grid;
+    grid-template-columns: 240px 1fr 305px;
+    height: calc(100vh - 44px);
+}
+
+.sidebar-left {
+    background-color: #08090b;
+    border-right: 1px solid #27272f; 
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0;
+    overflow-y: auto;
+}
+
+.sidebar-section { margin-bottom: 30px; }
+
+.section-title {
+    color: #52525b; 
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 0 16px 8px;
+}
+
+.side-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 16px;
+    color: #a1a1aa;
+    font-size: 12px;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+}
+
+.side-row.active {
+    background-color: #13141a; 
+    color: #fafafa;           
+    border-left-color: #5eead4;
+}
+
+.side-row:hover { color: #fafafa; }
+.side-row .glyph { width: 14px; display: flex; justify-content: center; color: #52525b; }
+.side-row.active .glyph { color: #5eead4; }
+.side-row .label { flex: 1; }
+.side-row .count { font-size: 11px; color: #52525b; }
+.dot { width: 8px; height: 8px; display: inline-block; }
+.add-new { margin-top: 5px; color: #52525b; }
+
+.tags-container { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px; }
+.tag {
+    color: #a1a1aa; font-size: 10px; padding: 1px 6px; 
+    border: 1px solid #27272f; cursor: pointer;
+}
+.tag:hover { color: #fafafa; border-color: #52525b; }
+
+.streak-box { padding: 0 16px; }
+.streak-header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+.streak-num { color: #5eead4; font-size: 22px; font-weight: bold; }
+.streak-text { color: #52525b; font-size: 10px; letter-spacing: 0.05em; }
+.streak-chart { display: flex; justify-content: space-between; align-items: flex-end; height: 35px; }
+.bar-group { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.bar { width: 18px; background-color: #5eead4; }
+.bar-group span { font-size: 9px; color: #52525b; }
+
+s
+.content {
+    background-color: #08090b;
+    padding: 30px 40px;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Phần Tiêu đề lớn */
+.content-header {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 30px;
+}
+
+.header-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fafafa;
+    letter-spacing: -0.02em;
+    margin-right: 16px;
+}
+
+.header-stats {
+    color: #52525b;
+    font-size: 11px;
+}
+
+.header-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.view-toggles {
+    display: flex;
+    gap: 4px;
+}
+
+.btn-ghost {
+    background-color: transparent;
+    border: 1px solid #27272f;
+    color: #a1a1aa;
+    padding: 4px 10px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+}
+
+.btn-ghost.active {
+    background-color: #13141a;
+    color: #fafafa;
+}
+
+.btn-primary {
+    background-color: #5eead4;
+    color: #08090b;
+    border: 1px solid #5eead4;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Quick Add input */
+.quick-add {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background-color: #0c0d10;
+    border: 1px dashed #27272f;
+    margin-bottom: 30px;
+}
+
+.quick-add .plus {
+    color: #5eead4;
+}
+
+.qadd-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    color: #fafafa;
+    font-size: 13px;
+}
+
+.qadd-input::placeholder {
+    color: #52525b;
+}
+
+/* Tiêu đề nhóm Task */
+.task-group {
+    margin-bottom: 30px;
+}
+
+.group-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.gtitle {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+}
+
+.gcount {
+    color: #3f3f46;
+    font-size: 10px;
+}
+
+.grule {
+    flex: 1;
+    height: 1px;
+    background-color: #1a1b1f;
+}
+
+/* Row 1 Task */
+.task-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background-color: #08090b;
+    border-left: 2px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+.task-row:hover {
+    background-color: #0f1014;
+}
+
+.task-row.selected {
+    background-color: #0f1014;
+    border-left-color: #5eead4;
+}
+
+.task-row .pri {
+    width: 2px;
+    height: 14px;
+}
+
+.pri.high { background-color: #fb7185; }
+.pri.med { background-color: #fbbf24; }
+.pri.low { background-color: #52525b; }
+
+.task-row .title {
+    color: #fafafa;
+    font-size: 13px;
+    flex: 1; /* Đẩy cụm thẻ tag sang phải */
+}
+
+/* Các thẻ thông tin bên phải task */
+.task-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+}
+
+.task-right .meta { color: #a1a1aa; }
+.task-right .proj { color: #a1a1aa; display: flex; align-items: center; gap: 4px; min-width: 90px;}
+.due-overdue { color: #fb7185; min-width: 80px; text-align: right;}
+.due-today { color: #5eead4; min-width: 80px; text-align: right;}
+
+/* Task Done */
+.task-row.done-row .done-text {
+    color: #52525b;
+    text-decoration: line-through;
+}
+
+/* Thanh tiến trình tuần ở đáy */
+.week-progress-box {
+    margin-top: 60px;
+    background-color: #0c0d10;
+    border: 1px solid #1a1b1f;
+    padding: 16px;
+}
+
+.wp-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.wp-title { color: #52525b; font-size: 10px; letter-spacing: 0.12em; }
+.wp-num { color: #fafafa; font-size: 14px; font-weight: 600; }
+.wp-percent { color: #5eead4; font-size: 11px; }
+
+.mini-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 20px;
+}
+
+.m-bar { width: 4px; }
+
+
+/* ==========================================
+   CỘT PHẢI
+========================================== */
+.sidebar-right {
+    background-color: #0c0d10; 
+    border-left: 1px solid #27272f;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.detail-header { color: #52525b; font-size: 10px; letter-spacing: 0.12em; margin-bottom: 12px; }
+.detail-title { color: #fafafa; font-size: 18px; font-weight: 600; margin-bottom: 24px; line-height: 1.4; }
+.detail-meta { margin-bottom: 32px; }
+.meta-row { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #1a1b1f; }
+.meta-label { width: 90px; color: #52525b; font-size: 10px; letter-spacing: 0.12em; }
+.meta-value { color: #fafafa; font-size: 12px; display: flex; align-items: center; gap: 8px; }
+
+.subtasks-section { margin-bottom: 32px; }
+.subtasks-header { display: flex; align-items: center; gap: 12px; color: #52525b; font-size: 10px; letter-spacing: 0.12em; margin-bottom: 16px; }
+
+/* CSS Thanh màu thanh tiến trình dùng chung */
+.progress-bar-bg { flex: 1; height: 4px; background-color: #1a1b1f; position: relative; }
+.progress-bar-fill { height: 100%; background-color: #5eead4; position: absolute; left: 0; }
+
+.subtask-item { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 12px; color: #fafafa; }
+.checkbox { width: 14px; height: 14px; border: 1px solid #52525b; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; }
+.checkbox.checked { background-color: #5eead4; border-color: #5eead4; color: #08090b; font-weight: bold; }
+.subtask-item.done .subtask-text { text-decoration: line-through; color: #52525b; }
+.add-subtask { color: #52525b; font-size: 10px; letter-spacing: 0.12em; margin-top: 16px; cursor: pointer; }
+.add-subtask:hover { color: #a1a1aa; }
+
+.notes-section { margin-bottom: 32px; }
+.notes-header { color: #52525b; font-size: 10px; letter-spacing: 0.12em; margin-bottom: 12px; }
+.notes-content { border: 1px solid #1a1b1f; padding: 16px; color: #a1a1aa; font-size: 12px; line-height: 1.6; background-color: #08090b; }
+
+.action-buttons { display: flex; gap: 12px; }
+.action-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 12px 0; background-color: transparent; border: 1px solid #1a1b1f; cursor: pointer; }
+.action-btn:hover { background-color: #13141a; border-color: #27272f; }
+.btn-icon { font-size: 14px; color: #5eead4; }
+.btn-text { color: #a1a1aa; font-size: 10px; letter-spacing: 0.1em; }
