@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal To-Do List</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section class="topbar">
+        <div class="topbar-left">
+            <div class="dot-accent"></div>
+            <span class="muted">~/</span>
+            <span class="text-bold">focus.todo</span>
+            <span class="muted">—</span>
+            <span class="accent-text">main</span>
+        </div>
+        <div class="topbar-right">
+            <button class="search-btn">$ search or run... <span class="kbd">⌘K</span></button>
+            <div class="sync-info">
+                <span>SYNC <span class="accent-text">●</span> 14:32</span>
+                <span>v1.4.2</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="main">
+        <div class="sidebar-left">
+            <div class="sidebar-section">
+                <div class="section-title">VIEWS</div>
+                <div class="side-row menu-item active" data-title="TODAY">
+                    <span class="glyph">◆</span><span class="label">Today</span><span class="count">4</span>
+                </div>
+                <div class="side-row menu-item" data-title="UPCOMING">
+                    <span class="glyph">▷</span><span class="label">Upcoming</span><span class="count">3</span>
+                </div>
+                <div class="side-row menu-item" data-title="INBOX">
+                    <span class="glyph">▢</span><span class="label">Inbox</span><span class="count">8</span>
+                </div>
+                <div class="side-row menu-item" data-title="COMPLETED">
+                    <span class="glyph">✓</span><span class="label">Completed</span><span class="count">142</span>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="section-title">PROJECTS</div>
+                <div class="side-row menu-item" data-title="ALGORITHMS">
+                    <span class="glyph"><span class="dot" style="background:#22d3ee"></span></span><span class="label">Algorithms</span><span class="count">7</span>
+                </div>
+                <div class="side-row menu-item" data-title="DISTRIBUTED">
+                    <span class="glyph"><span class="dot" style="background:#a78bfa"></span></span><span class="label">Distributed</span><span class="count">4</span>
+                </div>
+                <div class="side-row menu-item" data-title="OS">
+                    <span class="glyph"><span class="dot" style="background:#34d399"></span></span><span class="label">OS</span><span class="count">3</span>
+                </div>
+                <div class="side-row menu-item" data-title="CAPSTONE">
+                    <span class="glyph"><span class="dot" style="background:#fb923c"></span></span><span class="label">Capstone</span><span class="count">12</span>
+                </div>
+                <div class="side-row menu-item" data-title="CAREER">
+                    <span class="glyph"><span class="dot" style="background:#fbbf24"></span></span><span class="label">Career</span><span class="count">5</span>
+                </div>
+                <div class="side-row menu-item" data-title="PERSONAL">
+                    <span class="glyph"><span class="dot" style="background:#f472b6"></span></span><span class="label">Personal</span><span class="count">9</span>
+                </div>
+                <div class="side-row add-new">
+                    <span class="glyph">+</span><span class="label">NEW PROJECT</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="section-title">TAGS</div>
+                <div class="tags-container">
+                    <span class="tag">#hard</span><span class="tag">#graded</span><span class="tag">#reading</span><span class="tag">#meeting</span><span class="tag">#team</span><span class="tag">#lab</span><span class="tag">#health</span><span class="tag">#daily</span><span class="tag">#internship</span><span class="tag">#deadline</span><span class="tag">#bill</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="section-title">STREAK</div>
+                <div class="streak-box">
+                    <div class="streak-header">
+                        <span class="streak-num">23</span><span class="streak-text">DAY STREAK</span>
+                    </div>
+                    <div class="streak-chart">
+                        <div class="bar-group"><div class="bar" style="height: 100%;"></div><span>M</span></div>
+                        <div class="bar-group"><div class="bar" style="height: 100%;"></div><span>T</span></div>
+                        <div class="bar-group"><div class="bar" style="height: 100%;"></div><span>W</span></div>
+                        <div class="bar-group"><div class="bar" style="height: 70%; background: #2dd4bf;"></div><span>T</span></div>
+                        <div class="bar-group"><div class="bar" style="height: 100%;"></div><span>F</span></div>
+                        <div class="bar-group"><div class="bar" style="height: 40%; background: #3f3f46;"></div><span>S</span></div>
+                        <div class="bar-group"><div class="bar" style="height: 100%;"></div><span>S</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="content-header">
+                <div class="header-title">
+                    <span style="color: #5eead4;">&gt;</span> <span id="main-title">TODAY</span>
+                </div>
+                <div class="header-stats">4/9 done · 27/35 this week</div>
+                <div class="header-actions">
+                    <div class="view-toggles">
+                        <button class="btn-ghost active">LIST</button>
+                        <button class="btn-ghost">BOARD</button>
+                        <button class="btn-ghost">CAL</button>
+                    </div>
+                    <button class="btn-primary" style="display: none;">+ NEW TASK</button>
+                </div>
+            </div>
+
+            <div class="quick-add">
+                <span class="plus">+</span>
+                <input type="text" placeholder="add task... use @project #tag !priority due:tomorrow" class="qadd-input">
+                <span class="kbd">N</span>
+            </div>
+
+            <div class="task-group">
+                <div class="group-head">
+                    <span class="gtitle" style="color: #fb7185;">OVERDUE</span>
+                    <span class="gcount">[01]</span>
+                    <div class="grule"></div>
+                </div>
+                <div class="task-row">
+                    <div class="checkbox"></div>
+                    <div class="pri high"></div>
+                    <span class="title">Submit lab report — Operating Systems</span>
+                    <div class="task-right">
+                        <span class="tag">#lab</span>
+                        <span class="proj"><span class="dot" style="background:#34d399"></span>OS</span>
+                        <span class="due-overdue">Yesterday</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-group">
+                <div class="group-head">
+                    <span class="gtitle" style="color: #5eead4;">TODAY · 07 MAY 2026</span>
+                    <span class="gcount">[04]</span>
+                    <div class="grule"></div>
+                </div>
+                <div class="task-row selected">
+                    <div class="checkbox"></div>
+                    <div class="pri high"></div>
+                    <span class="title">Finish CS-241 problem set 04</span>
+                    <div class="task-right">
+                        <span class="meta">[2/3]</span>
+                        <span class="tag">#hard</span>
+                        <span class="tag">#graded</span>
+                        <span class="proj"><span class="dot" style="background:#22d3ee"></span>Algorithms</span>
+                        <span class="due-today">Today · 23:59</span>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <div class="checkbox"></div>
+                    <div class="pri med"></div>
+                    <span class="title">Read Chapter 7 — Distributed Systems</span>
+                    <div class="task-right">
+                        <span class="tag">#reading</span>
+                        <span class="proj"><span class="dot" style="background:#a78bfa"></span>Distributed</span>
+                        <span class="due-today">Today · 18:00</span>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <div class="checkbox"></div>
+                    <div class="pri med"></div>
+                    <span class="title">Group meeting — Senior project sync</span>
+                    <div class="task-right">
+                        <span class="meta">[0/2]</span>
+                        <span class="tag">#meeting</span>
+                        <span class="tag">#team</span>
+                        <span class="proj"><span class="dot" style="background:#fb923c"></span>Capstone</span>
+                        <span class="due-today">Today · 15:30</span>
+                    </div>
+                </div>
+                <div class="task-row done-row">
+                    <div class="checkbox checked">✓</div>
+                    <div class="pri low"></div>
+                    <span class="title done-text">Drink water & 20 min walk</span>
+                    <div class="task-right">
+                        <span class="tag">#health</span>
+                        <span class="tag">#daily</span>
+                        <span class="proj"><span class="dot" style="background:#f472b6"></span>Personal</span>
+                        <span class="due-today" style="color:#5eead4">Today</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-progress-box">
+                <div class="wp-header">
+                    <span class="wp-title">WEEK PROGRESS</span>
+                    <span class="wp-num">27/35</span>
+                    <span class="wp-percent">77%</span>
+                    <div style="flex:1"></div>
+                    <div class="mini-chart">
+                        <div class="m-bar" style="height:30%; background:#3f3f46;"></div>
+                        <div class="m-bar" style="height:50%; background:#3f3f46;"></div>
+                        <div class="m-bar" style="height:20%; background:#3f3f46;"></div>
+                        <div class="m-bar" style="height:60%; background:#3f3f46;"></div>
+                        <div class="m-bar" style="height:40%; background:#3f3f46;"></div>
+                        <div class="m-bar" style="height:10%; background:#3f3f46;"></div>
+                        <div class="m-bar" style="height:70%; background:#3f3f46;"></div>
+                        
+                        <div class="m-bar" style="height:50%; background:#5eead4;"></div>
+                        <div class="m-bar" style="height:80%; background:#5eead4;"></div>
+                        <div class="m-bar" style="height:30%; background:#5eead4;"></div>
+                        <div class="m-bar" style="height:60%; background:#5eead4;"></div>
+                        <div class="m-bar" style="height:40%; background:#5eead4;"></div>
+                        <div class="m-bar" style="height:50%; background:#5eead4;"></div>
+                        <div class="m-bar" style="height:70%; background:#5eead4;"></div>
+                    </div>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: 77%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-right">
+            <div class="detail-header">TASK / T1</div>
+            <h2 class="detail-title">Finish CS-241 problem set 04</h2>
+
+            <div class="detail-meta">
+                <div class="meta-row">
+                    <span class="meta-label">STATUS</span>
+                    <span class="meta-value">■ ACTIVE</span>
+                </div>
+                <div class="meta-row">
+                    <span class="meta-label">PROJECT</span>
+                    <span class="meta-value" style="color: #5eead4;">
+                        <span class="dot" style="background: #5eead4;"></span> Algorithms
+                    </span>
+                </div>
+                <div class="meta-row">
+                    <span class="meta-label">DUE</span>
+                    <span class="meta-value" style="color: #fafafa;">Today · 23:59</span>
+                </div>
+                <div class="meta-row">
+                    <span class="meta-label">PRIORITY</span>
+                    <span class="meta-value" style="color: #fb7185;">!!! HIGH</span>
+                </div>
+                <div class="meta-row" style="border-bottom: none;">
+                    <span class="meta-label">TAGS</span>
+                    <span class="meta-value">
+                        <span class="tag">#hard</span>
+                        <span class="tag">#graded</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="subtasks-section">
+                <div class="subtasks-header">
+                    <span>SUBTASKS [2/3]</span>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 66%;"></div>
+                    </div>
+                </div>
+                <div class="subtask-list">
+                    <div class="subtask-item done">
+                        <span class="checkbox checked">✓</span>
+                        <span class="subtask-text">Dijkstra implementation</span>
+                    </div>
+                    <div class="subtask-item done">
+                        <span class="checkbox checked">✓</span>
+                        <span class="subtask-text">Write proof for Q3</span>
+                    </div>
+                    <div class="subtask-item">
+                        <span class="checkbox"></span>
+                        <span class="subtask-text">Run test cases & submit</span>
+                    </div>
+                    <div class="add-subtask">+ ADD SUBTASK</div>
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-header">NOTES</div>
+                <div class="notes-content">
+                    Office hours moved to 4pm. Submit via Gradescope.
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn">
+                    <span class="btn-icon">↵</span>
+                    <span class="btn-text">COMPLETE</span>
+                </button>
+                <button class="action-btn">
+                    <span class="btn-icon">E</span>
+                    <span class="btn-text">EDIT</span>
+                </button>
+                <button class="action-btn">
+                    <span class="btn-icon">⌫</span>
+                    <span class="btn-text">DELETE</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
