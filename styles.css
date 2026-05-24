@@ -202,7 +202,6 @@ s
     cursor: pointer;
 }
 
-/* Quick Add input */
 .quick-add {
     display: flex;
     align-items: center;
@@ -229,7 +228,6 @@ s
     color: #52525b;
 }
 
-/* Tiêu đề nhóm Task */
 .task-group {
     margin-bottom: 30px;
 }
@@ -258,7 +256,6 @@ s
     background-color: #1a1b1f;
 }
 
-/* Row 1 Task */
 .task-row {
     display: flex;
     align-items: center;
@@ -293,7 +290,6 @@ s
     flex: 1; /* Đẩy cụm thẻ tag sang phải */
 }
 
-/* Các thẻ thông tin bên phải task */
 .task-right {
     display: flex;
     align-items: center;
@@ -312,7 +308,6 @@ s
     text-decoration: line-through;
 }
 
-/* Thanh tiến trình tuần ở đáy */
 .week-progress-box {
     margin-top: 60px;
     background-color: #0c0d10;
@@ -341,9 +336,6 @@ s
 .m-bar { width: 4px; }
 
 
-/* ==========================================
-   CỘT PHẢI
-========================================== */
 .sidebar-right {
     background-color: #0c0d10; 
     border-left: 1px solid #27272f;
@@ -361,7 +353,6 @@ s
 .subtasks-section { margin-bottom: 32px; }
 .subtasks-header { display: flex; align-items: center; gap: 12px; color: #52525b; font-size: 10px; letter-spacing: 0.12em; margin-bottom: 16px; }
 
-/* CSS Thanh màu thanh tiến trình dùng chung */
 .progress-bar-bg { flex: 1; height: 4px; background-color: #1a1b1f; position: relative; }
 .progress-bar-fill { height: 100%; background-color: #5eead4; position: absolute; left: 0; }
 
