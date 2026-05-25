@@ -1,6 +1,3 @@
-// =========================================================================
-// MOCK DATA - KHO CƠ SỞ DỮ LIỆU GIẢ LẬP ĐỂ CHẠY CHỨC NĂNG TƯƠNG TÁC ĐỘNG
-// =========================================================================
 const tasksData = [
     {
         id: "T1",
@@ -136,20 +133,15 @@ const tasksData = [
     }
 ];
 
-// Biến trạng thái toàn cục điều khiển bộ lọc hiện tại và Task đang chọn
 let currentFilter = "today"; 
 let selectedTaskId = "T1";
 
-// Đếm tổng số lượng task động đẩy lên huy hiệu đếm góc trái sidebar
 function updateSidebarBadges() {
     document.getElementById('count-today').textContent = tasksData.filter(t => t.view === 'today' && !t.completed).length + 1; // cộng task completed giả lập
     document.getElementById('count-upcoming').textContent = tasksData.filter(t => t.view === 'upcoming').length;
     document.getElementById('count-inbox').textContent = tasksData.length;
 }
 
-// =========================================================================
-// HÀM DỰNG MENU CHÍNH VÀ CHI TIẾT TASK PHẢI
-// =========================================================================
 
 function renderTasks() {
     const container = document.getElementById('task-list-container');
@@ -162,15 +154,12 @@ function renderTasks() {
         else if (currentFilter === "completed") filtered = tasksData.filter(t => t.completed);
         else filtered = tasksData.filter(t => t.view === currentFilter);
     } else {
-        // Nếu click chọn theo Projects riêng
         filtered = tasksData.filter(t => t.project === currentFilter);
     }
 
-    // Tách riêng nhóm tasks bị Quá hạn (Overdue) và Nhóm hiện hành để dựng tiêu đề nhóm kẻ ngang rãnh chuẩn xác
     const overdueTasks = filtered.filter(t => t.dueState === "overdue" && !t.completed);
     const normalTasks = filtered.filter(t => t.dueState !== "overdue" || t.completed);
 
-    // 1. Dựng khối OVERDUE nếu có dữ liệu
     if (overdueTasks.length > 0) {
         let groupHtml = `
             <div class="task-group">
@@ -185,7 +174,6 @@ function renderTasks() {
         container.innerHTML += groupHtml;
     }
 
-    // 2. Dựng khối Nhiệm vụ thông thường theo nhóm tên Tab
     if (normalTasks.length > 0) {
         let titleLabel = currentFilter.toUpperCase();
         let titleColor = "#5eead4";
@@ -205,7 +193,6 @@ function renderTasks() {
         container.innerHTML += groupHtml;
     }
 
-    // Gắn sự kiện click nghe ngóng người dùng bấm vào hàng Task để đổi chi tiết bên cột phải
     document.querySelectorAll('.task-row').forEach(row => {
         row.addEventListener('click', function() {
             selectedTaskId = this.getAttribute('data-id');
@@ -216,7 +203,6 @@ function renderTasks() {
     });
 }
 
-// Hàm sinh mã HTML cho từng hàng dòng đơn vị Task lẻ
 function generateTaskRowHtml(task) {
     const isSelected = task.id === selectedTaskId ? "selected" : "";
     const isDoneRow = task.completed ? "done-row" : "";
@@ -245,7 +231,6 @@ function generateTaskRowHtml(task) {
     `;
 }
 
-// Đổ dữ liệu cực kỳ chi tiết cho bảng xem task bên cột phải
 function renderRightDetailPanel() {
     const panel = document.getElementById('detail-panel');
     const task = tasksData.find(t => t.id === selectedTaskId);
@@ -339,9 +324,7 @@ function renderRightDetailPanel() {
     `;
 }
 
-// =========================================================================
-// ĐIỀU HƯỚNG TƯƠNG TÁC SIDEBAR TRÁI
-// =========================================================================
+
 document.querySelectorAll('.menu-item').forEach(item => {
     item.addEventListener('click', function() {
         document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
@@ -361,18 +344,14 @@ document.querySelectorAll('.menu-item').forEach(item => {
     });
 });
 
-// =========================================================================
-// QUẢN LÝ BẬT TẮT ĐÓNG MỞ CÁC HỘP THOẠI MODALS (NEW FEATURES)
-// =========================================================================
 
-// Thao tác với Modal Add Task
+
 const taskModal = document.getElementById('task-modal');
 document.getElementById('open-modal-btn').addEventListener('click', () => taskModal.classList.add('open'));
 document.querySelectorAll('.close-modal').forEach(btn => {
     btn.addEventListener('click', () => taskModal.classList.remove('open'));
 });
 
-// Thao tác với Command Palette
 const commandPalette = document.getElementById('command-palette');
 const openPaletteBtn = document.getElementById('open-palette-btn');
 const paletteSearchInput = document.getElementById('palette-search');
@@ -386,25 +365,21 @@ document.querySelectorAll('.close-palette').forEach(btn => {
     btn.addEventListener('click', () => commandPalette.classList.remove('open'));
 });
 
-// Click vào tùy chọn Add New Task bên trong bảng lệnh
 document.getElementById('palette-cmd-new').addEventListener('click', () => {
     commandPalette.classList.remove('open');
     taskModal.classList.add('open');
 });
 
-// Điều hướng nhanh bằng cách click tùy chọn Go To Today / Upcoming trong bảng lệnh thông minh
 document.querySelectorAll('.palette-options .palette-item[data-target]').forEach(item => {
     item.addEventListener('click', function() {
         const targetView = this.getAttribute('data-target');
         commandPalette.classList.remove('open');
         
-        // Kích hoạt click giả lập sang nút menu tương ứng
         const matchingMenu = document.querySelector(`.menu-item[data-view="${targetView}"]`);
         if (matchingMenu) matchingMenu.click();
     });
 });
 
-// Đóng toàn bộ popup bằng nút phím cứng ESC tiện lợi chuẩn lập trình viên
 window.addEventListener('keydown', (e) => {
     if (e.key === "Escape") {
         taskModal.classList.remove('open');
@@ -412,20 +387,16 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
-// Click ra rìa vùng đen trống bao quanh để đóng hộp thoại nhanh
 window.addEventListener('click', (e) => {
     if (e.target === taskModal) taskModal.classList.remove('open');
     if (e.target === commandPalette) commandPalette.classList.remove('open');
 });
 
-// Công tắc gạt thông báo trong form tạo nhiệm vụ
 document.querySelector('.toggle-switch').addEventListener('click', function() {
     this.classList.toggle('active');
 });
 
-// =========================================================================
-// KHỞI CHẠY ĐẦU TIÊN KHI TẢI TRANG WEB
-// =========================================================================
+
 updateSidebarBadges();
 renderTasks();
 renderRightDetailPanel();
