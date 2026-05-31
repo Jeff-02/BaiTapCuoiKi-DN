@@ -137,17 +137,40 @@ let currentFilter = "today";
 let selectedTaskId = "T1";
 
 function updateSidebarBadges() {
-    document.getElementById('count-today').textContent = tasksData.filter(t => t.view === 'today' && !t.completed).length + 1; // cộng task completed giả lập
-    document.getElementById('count-upcoming').textContent = tasksData.filter(t => t.view === 'upcoming').length;
-    document.getElementById('count-inbox').textContent = tasksData.length;
+    document.getElementById('count-today').textContent = tasksData.filter(t => t.view === 'today' && !t.completed).length;
+    document.getElementById('count-upcoming').textContent = tasksData.filter(t => t.view === 'upcoming' && !t.completed).length;
+    document.getElementById('count-inbox').textContent = tasksData.filter(t => !t.completed).length;
+    document.getElementById('count-completed').textContent = tasksData.filter(t => t.completed).length;
 }
 
+function selectSidebarItem(item) {
+    document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+    item.classList.add('active');
+
+    currentFilter = item.getAttribute('data-view') || 'today';
+    document.getElementById('main-title').textContent = item.querySelector('.label').textContent.toUpperCase();
+
+    const firstActiveTask = tasksData.find(t => currentFilter === 'inbox' || t.view === currentFilter || t.project === currentFilter);
+    if (firstActiveTask) selectedTaskId = firstActiveTask.id;
+
+    renderTasks();
+    renderRightDetailPanel();
+}
+
+function toggleTaskCompleted(taskId) {
+    const task = tasksData.find(t => t.id === taskId);
+    if (!task) return;
+
+    task.completed = !task.completed;
+    updateSidebarBadges();
+    renderTasks();
+    renderRightDetailPanel();
+}
 
 function renderTasks() {
     const container = document.getElementById('task-list-container');
-    container.innerHTML = ""; // Reset sạch ruột cũ
+    container.innerHTML = ""; 
 
-    // Lọc dữ liệu mảng dựa vào tab đang chọn ở sidebar trái
     let filtered = [];
     if (["today", "upcoming", "inbox", "completed"].includes(currentFilter)) {
         if (currentFilter === "inbox") filtered = tasksData;
@@ -156,7 +179,6 @@ function renderTasks() {
     } else {
         filtered = tasksData.filter(t => t.project === currentFilter);
     }
-
     const overdueTasks = filtered.filter(t => t.dueState === "overdue" && !t.completed);
     const normalTasks = filtered.filter(t => t.dueState !== "overdue" || t.completed);
 
@@ -199,6 +221,14 @@ function renderTasks() {
             document.querySelectorAll('.task-row').forEach(r => r.classList.remove('selected'));
             this.classList.add('selected');
             renderRightDetailPanel();
+        });
+    });
+
+    document.querySelectorAll('.task-row .checkbox').forEach(checkbox => {
+        checkbox.addEventListener('click', function(event) {
+            event.stopPropagation();
+            const taskId = this.closest('.task-row')?.getAttribute('data-id');
+            if (taskId) toggleTaskCompleted(taskId);
         });
     });
 }
@@ -324,34 +354,45 @@ function renderRightDetailPanel() {
     `;
 }
 
-
 document.querySelectorAll('.menu-item').forEach(item => {
     item.addEventListener('click', function() {
-        document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
-        this.classList.add('active');
-
-        currentFilter = this.getAttribute('data-view');
-        
-        // Đổi chữ tiêu đề to ở cột giữa
-        document.getElementById('main-title').textContent = this.querySelector('.label').textContent.toUpperCase();
-        
-        // Reset tự chọn task đầu tiên của bộ lọc mới làm mặc định tránh crash chi tiết panel phải
-        const firstActiveTask = tasksData.find(t => currentFilter === 'inbox' || t.view === currentFilter || t.project === currentFilter);
-        if (firstActiveTask) selectedTaskId = firstActiveTask.id;
-
-        renderTasks();
-        renderRightDetailPanel();
+        selectSidebarItem(this);
     });
 });
 
+const newProjectButton = document.querySelector('.add-new');
+if (newProjectButton) {
+    newProjectButton.addEventListener('click', () => {
+        const projectName = prompt('Nhập tên project mới:', 'New Project');
+        if (!projectName) return;
 
+        const normalized = projectName.trim();
+        if (!normalized) return;
+
+        const viewSlug = normalized.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        if (document.querySelector(`.menu-item[data-view="${viewSlug}"]`)) {
+            alert('Project đã tồn tại.');
+            return;
+        }
+
+        const projectRow = document.createElement('div');
+        projectRow.className = 'side-row menu-item';
+        projectRow.setAttribute('data-view', viewSlug);
+        projectRow.innerHTML = `<span class="glyph"><span class="dot" style="background:#7c3aed"></span></span><span class="label">${normalized}</span><span class="count">0</span>`;
+        newProjectButton.insertAdjacentElement('beforebegin', projectRow);
+        projectRow.addEventListener('click', function() {
+            selectSidebarItem(this);
+        });
+
+        selectSidebarItem(projectRow);
+    });
+}
 
 const taskModal = document.getElementById('task-modal');
 document.getElementById('open-modal-btn').addEventListener('click', () => taskModal.classList.add('open'));
 document.querySelectorAll('.close-modal').forEach(btn => {
     btn.addEventListener('click', () => taskModal.classList.remove('open'));
 });
-
 const commandPalette = document.getElementById('command-palette');
 const openPaletteBtn = document.getElementById('open-palette-btn');
 const paletteSearchInput = document.getElementById('palette-search');
@@ -395,8 +436,6 @@ window.addEventListener('click', (e) => {
 document.querySelector('.toggle-switch').addEventListener('click', function() {
     this.classList.toggle('active');
 });
-
-
 updateSidebarBadges();
 renderTasks();
 renderRightDetailPanel();
